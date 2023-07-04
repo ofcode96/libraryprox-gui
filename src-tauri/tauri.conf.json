@@ -1,0 +1,186 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+    
+  },
+  "package": {
+    "productName": "libraryprox",
+    "version": "0.1.0"
+   
+  },
+  "tauri": {
+    
+    "allowlist": {
+      "all": false,
+      "http": {
+        
+        "all": true,
+        "request": true ,
+        "scope":[
+          "http://localhost:9000",
+          "http://192.*:9000",
+          "http://**",
+          "http://udc:9000/*"
+        ]
+      },
+      "path": {
+        "all": true
+      
+       
+      
+      },
+      "dialog": {
+        "all": true
+       
+      },
+      "fs": {
+        "all": true,
+        "scope": [
+         
+          "**"
+        ]
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+
+      },
+      "shell": {
+        "all": true,
+        "execute": true,
+        "sidecar": true,
+        "open": true,
+        "scope": [{
+          "name": "./backend/server/main",
+          "sidecar": true
+          
+        },
+        {
+          "name": "./backend/server/killtasks",
+          "sidecar": true
+        },
+        {
+          "name": "./backend/server/libraryproxcontroller",
+          "sidecar": true
+    
+          
+        },{
+          "name": "get-main-data",
+          "cmd": "cmd",
+          "args":[
+            "tasklist",
+            "/v",
+            "/fo",
+            "csv",
+            "|",
+            "findstr",
+            "/i",
+            "main.exe"
+          ]
+          
+        }]
+      },
+      "protocol": {
+        "all": true,
+        "asset": true,
+        "assetScope": ["**"]
+
+       
+      }
+    },
+    "bundle": {
+      "active": true,
+      "category": "DeveloperTool",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [
+        "./backend/server/main",
+        "./backend/server/killtasks",
+        "./backend/server/runasadmin",
+        "./backend/server/libraryproxcontroller"
+      ],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.libraryprox.dev",
+      "longDescription": "",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [
+        "../src/assets/*",
+        "./backend-data.json",
+        "./history.log",
+        "./library.db",
+        "./enterprise.txt",
+        "./enterprise.jpg"
+       
+
+      ],
+
+      "shortDescription": "",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "",
+        "tsp": true
+
+      }
+
+    },
+    
+    "updater": {
+      "active": false
+    },
+    "security": { 
+      "csp": null
+     },
+
+   
+    "windows": [{
+      "fullscreen": false,
+      "height": 800,
+      "resizable": true,
+      "title": "libraryprox",
+      "width": 1200,
+      "center": true,
+      "decorations": false,
+      "hiddenTitle": true,
+      "visible": false
+
+    }, {
+      "title": "libraryprox",
+      "width": 800,
+      "height": 500,
+      "url": "splashscreen.html",
+      "label": "splashscreen",
+      "decorations": false,
+      "center": true,
+      "resizable": false
+
+    }]
+  }
+}
